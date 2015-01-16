@@ -1,0 +1,29 @@
+/* 
+    Created on : Dec 28, 2014, 8:43:33 PM
+    Author     : Christopher Navarre
+*/
+
+.red {
+    color: #951313;
+}
+
+.r_align {
+    text-align: right;
+    padding-right: 10px;
+}
+
+.help_header {
+    text-align: center;
+}
+
+.help_main_area {
+    background-color: white;
+    padding: 20px;
+    margin-right: 20px;
+    border-bottom: 2px #ddd solid;
+    border-right: 2px #ddd solid;
+}
+
+.help_block {
+    
+}

@@ -1,0 +1,41 @@
+/* 
+    Created on : Dec 28, 2014, 1:09:42 PM
+    Author     : Christopher Navarre
+*/
+
+#donate_container {
+    max-width: 700px;
+    background-color: white;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    padding: 20px;
+    margin-top: 20px;
+    border-bottom: 2px #ddd solid;
+    border-right: 2px #ddd solid;
+}
+
+#donate_container h1 {
+    padding-bottom: 15px;
+    line-height: 110%;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+#donate_container p {
+    
+}
+
+#donate_container img {
+    border-bottom: 2px #ddd solid;
+    border-right: 2px #ddd solid;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#donate_container input[type="image"] {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    border: 2px #ccc double;
+}
