@@ -16,7 +16,7 @@ class Donation_Page {
     function display_donate_page() {
         ?>
         <div id='donate_container'>
-            <?php echo '<img src="' . plugins_url('../img/snapshot-180.jpg', __FILE__) . '" class="ytpi_profile_image" />'; ?>
+            <?php echo '<img src="' . plugins_url('../img/snapshot-180.jpg', __FILE__) . '" class="ytvi_profile_image" />'; ?>
             
             <h1>Did I save you time and trouble?</h1>
             <p>If you found my plugin to be a useful time saver then it would be great if you could return the favor. 

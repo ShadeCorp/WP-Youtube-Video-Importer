@@ -11,7 +11,7 @@
 				include 'google/src/Google/Client.php';	
 			
 				$this->google_client = new Google_Client();
-				$this->google_client->setApplicationName("WP Youtube Post Importer");
+				$this->google_client->setApplicationName("WP Youtube Video Importer");
 				$this->google_client->setDeveloperKey($this->developer_key);
 				$this->youtube = new Google_Service_Youtube($this->google_client);
 		}

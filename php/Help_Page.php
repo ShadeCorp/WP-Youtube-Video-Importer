@@ -15,7 +15,7 @@ class Help_Page {
     <div class="help_header help_block"><h1>User Guide</h1></div>
     <div class="help_main_area help_block">
     <p>Plugin is used entirely through the wp-admin interface. You can find
-    the links within the Wordpress menu, WP YouTube Post Importer should
+    the links within the Wordpress menu, WP YouTube Video Importer should
     be below the core Wordpress menu items.</p>
     
     <li>Settings Page: Let's you choose the settings for future imports, I recommend you check this before importing</li>
@@ -23,7 +23,7 @@ class Help_Page {
     <li>Donate Page: If my plugin helped you save you time and effort, it would be greatly appreciated.</li>
     <li>Help Page: You're looking at it ;). This information is also contained in the readme file.</li>
         
-    <p>YouTube Post Importer allows you to import a single video, a playlist, or a channel (which actually grabs the uploaded videos playlist)</p>
+    <p>YouTube Video Importer allows you to import a single video, a playlist, or a channel (which actually grabs the uploaded videos playlist)</p>
     
     <h4>Here are some examples of valid links that you can post into the importer field</h4>
     <ul>
