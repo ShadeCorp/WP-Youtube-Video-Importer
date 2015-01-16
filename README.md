@@ -1,12 +1,12 @@
-=== WP Youtube Video Importer ===
-Contributors: ChrisNavarre
-Donate link: http://goo.gl/1yHqsz
-Tags: youtube, video, thumbnail, bulk, batch, import, post
-Requires at least: 3.7
-Tested up to: 4.1
-Stable tag: trunk
-License: GPLv2
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+=== WP Youtube Video Importer ===  
+Contributors: ChrisNavarre  
+Donate link: http://goo.gl/1yHqsz  
+Tags: youtube, video, thumbnail, bulk, batch, import, post  
+Requires at least: 3.7  
+Tested up to: 4.1  
+Stable tag: trunk  
+License: GPLv2  
+License URI: http://www.gnu.org/licenses/gpl-2.0.html  
 
 Imports videos from YouTube channels, playlists, and single videos embeded in posts within Wordpress. Optionally include
 descriptions and thumbnails.
