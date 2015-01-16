@@ -1,6 +1,6 @@
 jQuery(document).ready(function($) {  
     var has_box = false;
-    var doc_class = 'importer_submit';
+    var conf_class = 'submit_conf';
     var vid_count = 0;
     var vid_successes = 0;
     var vid_failures = 0;
@@ -34,8 +34,12 @@ jQuery(document).ready(function($) {
         var container = 'the_submission';
         var cb_id = 'cb_confirm';
         
-        // Remove old import if still aroudn
-        $('#import_info').fadeOut(500, function() { $(this).remove()} );
+        // Renable submit if complete
+
+                
+        
+        // Remove old import if still around
+        $('#import_info').fadeOut(500, function() { $(this).remove(); } );
         
         // Uncheck box and remove importing information every time link changes
         $('#' + cb_id).attr('checked', false);
@@ -47,7 +51,8 @@ jQuery(document).ready(function($) {
         } else if (!match) {
             // if not playlist, channel, or user
             // Remove checkbox and warning text
-            remove_class_elements(doc_class);
+            $('.' + conf_class).fadeOut(500, function() { $(this).remove(); });
+            has_box = false;
             submit_toggle_enable(submit_id, true);
         }
     });
@@ -61,14 +66,15 @@ jQuery(document).ready(function($) {
      * @returns void
      */
     function add_confirmation_box(container, cb_id, submit_id) {
-        $('#' + container).append('<div class="' + doc_class + '" style="margin-top:5px;">')
-                .append('<p>Import Videos Between <input type="text" id="since_datepicker" size=10> and <input type="text" id="to_datepicker" size=10> <b>Format</b>: YYYY-MM-DD' + 
-                    '<br>\t* Just leave one or both fields blank if you do not want a beginning and/or ending date</p>')
-                .append($('<input />', { type: 'checkbox', id: cb_id, class: doc_class}))
-                .append('Link will be importing a playlist potentially with many\n\
-                 videos. It may take a while and slow down your website while\n\
-                 all the data is processing. Are you still ready to import all the posts?\n\
-                 Check the box to confirm.</div>');
+        $('#' + container).after('<div class="' + conf_class + '" style="margin-top:5px;">' +
+            'Import Videos Between <input type="text" id="since_datepicker" size=10> and \n\
+            <input type="text" id="to_datepicker" size=10>\n\ <b>Format</b>: YYYY-MM-DD' + 
+            '<br>\t* Just leave one or both fields blank if you do not want a beginning and/or ending date' +
+            '<p><input type="checkbox" id="' + cb_id + '" >' +
+            'Link will be importing a playlist potentially with many \n\ ' +
+            ' videos. It may take a while and slow down your website while\n\
+             all the data is processing. Are you still ready to import all the posts?\n\
+             Check the box to confirm.</p></div>');
                 
         // Datepicker
         $('#since_datepicker').datepicker({dateFormat: 'yy-mm-dd'});
@@ -77,17 +83,6 @@ jQuery(document).ready(function($) {
         // Unblock submit button if checked
         require_checkbox(cb_id, submit_id);
         has_box = true;
-    }
-    
-    /**
-     * Remove elments with class_id
-     * 
-     * @param class_id
-     * @returns void
-     */
-    function remove_class_elements(class_id) {
-        $('.' + class_id).remove();
-        has_box = false;
     }
     
     /**
@@ -126,7 +121,13 @@ jQuery(document).ready(function($) {
                $('#' + submit_id).click(function(e) {
                    if (finished === 1) {
                        import_videos();
-                       $('#' + submit_id).unbind("click");
+                       
+                       // Remove confirmation box
+                       $('.' + conf_class).fadeOut(500, function() { $(this).remove(); });
+                       has_box = false;
+                       
+                       // Disable
+                       $('#' + submit_id).fadeTo(500, 0.2).unbind("click");
                        finished = 0;
                        // displayed_html = 1;
                    }
@@ -149,8 +150,8 @@ jQuery(document).ready(function($) {
     }
  
     function import_videos() {
-        importer_html_append();
         reset_counters();
+        importer_html_append();
         toggle_input_disable(video_link, true);
 
         // Step 1: Acquire Parse URL if necessary
@@ -163,26 +164,24 @@ jQuery(document).ready(function($) {
                 min_date_filter = $('#since_datepicker').val();
                 max_date_filter = $('#to_datepicker').val();
                 
-                // Use data to get IDs in loop
                 if (error_check(json_data['errors'])) return;
                 
                 // Update Progress Bar
                 update_id_bar(25);
                
-                // Get all IDs using data
+                // Determine query information
                 if (json_data[2] !== null){
-                    var video_ids;
                     var type = json_data[1];
                     var id = json_data[2];
                     
-                    // Proceed - One ID or many?
+                    // Proceed - One ID or Playlist
                     if (list_matches.indexOf(type) > -1){
-                        // Get ALL Video ids as ARRAY
+                        // Get Playlist / Channel Playlist
                         fetch_playlist_details(json_data);
                     } else {
+                        // Single Video
                         update_id_bar(100);
                         fetch_video(id);
-                        toggle_input_disable(video_link, false);
                     }
                 } else {
                     // Error
@@ -221,7 +220,6 @@ jQuery(document).ready(function($) {
                 update_import_bar(100);
                 
                 // Reenable form for another submit
-                submit_toggle_enable(submit_id, true);
                 toggle_input_disable(video_link, false);
             }             
         );
@@ -294,8 +292,7 @@ jQuery(document).ready(function($) {
                      // TODO: Progress bar 100%, display finished message!
                     update_import_bar(100);
                     
-                    // Reenable form for another submit
-                    submit_toggle_enable(submit_id, true);
+                    // Reenable input for another submit
                     toggle_input_disable(video_link, false);
                 }
             }             
@@ -318,46 +315,7 @@ jQuery(document).ready(function($) {
              fetch_videos(json_data['playlist_id']);
          });
     }
-    
-    function fetch_video_id_grouping(playlist_id, nextPageToken) {
-        if (playlist_id) {
-             $.post(ajaxurl,
-        {'action' : 'fetch_video_ids',
-         'playlist_id' : playlist_id,
-         'nextPageToken' : nextPageToken,
-         'perPage' : idsPerPage},
-         function(raw_json) {
-             var json_data = JSON.parse(raw_json);
-             if (error_check(json_data['errors'])) return;
-             
-             // #function
-             
-             // Handle IDs
-             vids_to_process += json_data['video_ids']; // Add new ids
-             
-             // Update Progress Bar
-             vid_id_loops_done++;
-             update_id_bar(25 + (Math.floor(75 / vid_id_loops_needed * vid_id_loops_done)));
-
-             // Handle Next Page token recall
-             if (vid_id_loops_done < vid_id_loops_needed) {
-                 // Continue
-                 fetch_video_id_grouping(playlist_id, json_data['nextPageToken']);
-             } else {
-                 // Start Video Import
-                 update_id_bar(100);
-                 fetch_videos(vids_to_process);
-                 
-                 // Reenable form for another submit
-                 submit_toggle_enable('submit_id', true);
-                 toggle_input_disable('video_link', false);
-             }
-         });    
-        } else {
-            $('#ytpi-debuglist').append("<li>" + "No Playlist ID" + "</li>");
-        }
-        
-    }
+   
         
     /**
      * Adds all the importer details after a user
