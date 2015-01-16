@@ -11,49 +11,49 @@
             
 
             function __construct($videoResult) {
-                    $options = get_option('ytpi_options');
+				$options = get_option('ytpi_options');
 
 
-                    $this->id = $videoResult['id'];
-                    $this->title = $videoResult['snippet']['title'];
-                    $this->youtube_embed = '<div align="' . $options['embed_align'] . '"><iframe src="http://www.youtube.com/embed/' 
-                            . $this->id . '" frameborder="0" width="' . $options['video_width'] . '"height="' .
-                            $options['video_height'] . '"></iframe></div>';
+				$this->id = $videoResult['id'];
+				$this->title = $videoResult['snippet']['title'];
+				$this->youtube_embed = '<div align="' . $options['embed_align'] . '"><iframe src="http://www.youtube.com/embed/' 
+					. $this->id . '" frameborder="0" width="' . $options['video_width'] . '"height="' .
+					$options['video_height'] . '"></iframe></div>';
 
-                    // Optionals
-                    if ($options['inc_description'] === 'below') {
-                        $this->content = '<p>' . $this->youtube_embed . '</p>' . $videoResult['snippet']['description'];
-                    } else if ($options['inc_description'] === 'above') {
-                        $this->content = $videoResult['snippet']['description'] . '<p>' . $this->youtube_embed . '</p>';
-                    } else {
-                        $this->content = $this->youtube_embed;
-                    }
+				// Optionals
+				if ($options['inc_description'] === 'below') {
+					$this->content = '<p>' . $this->youtube_embed . '</p>' . $videoResult['snippet']['description'];
+				} else if ($options['inc_description'] === 'above') {
+					$this->content = $videoResult['snippet']['description'] . '<p>' . $this->youtube_embed . '</p>';
+				} else {
+					$this->content = $this->youtube_embed;
+				}
 
-                    // Thumbnail Optional
-                    if ($options['thumbnail_featured_image'] === 'on') {
-                        $this->thumb_url = $this->find_best_url($videoResult['snippet']['thumbnails']);
-                    }
+				// Thumbnail Optional
+				if ($options['thumbnail_featured_image'] === 'on') {
+					$this->thumb_url = $this->find_best_url($videoResult['snippet']['thumbnails']);
+				}
 
-                    $this->publish = $options['publish_status'];
+				$this->publish = $options['publish_status'];
             }
 
             function store_post() {
-                    $post = array(
-                            'post_title' => $this->title,
-                            'post_status' => $this->publish,
-                            'post_content' => $this->content,
-                    );
+				$post = array(
+					'post_title' => $this->title,
+					'post_status' => $this->publish,
+					'post_content' => $this->content,
+				);
 
-                    $id = wp_insert_post($post);
-                    set_post_format($id, 'video');
-                    
-                    if ($this->thumb_url !== null) { 
-                        $this->load_and_attach_thumbnail($this->thumb_url, $id, $this->title);
-                        
-                        $hello = 'hello hello hello';
-                    }
+				$id = wp_insert_post($post);
+				set_post_format($id, 'video');
+				
+				if ($this->thumb_url !== null) { 
+					$this->load_and_attach_thumbnail($this->thumb_url, $id, $this->title);
+					
+					$hello = 'hello hello hello';
+				}
 
-                    return $id;
+				return $id;
             }
             
             /**

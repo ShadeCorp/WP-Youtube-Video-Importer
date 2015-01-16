@@ -42,10 +42,18 @@ own by authenticating. Let me know if this is a feature you'd
 really like to see.
 
 == Changelog ==
+= 1.0.2 =
+* Corrected Reset Options Setting
+
+= 1.0.1 =
+* Variable/Title Name Overhaul
 
 = 1.0 =
 * Initial Release - Import videos, playlists, channels
 * Supports Thumbnails, Descriptions, and other various options
+
+
+
 
 == Usage ==
 

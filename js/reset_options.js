@@ -5,7 +5,7 @@ jQuery(document).ready(function($) {
             
             // Radio Groups
             $('#inc_description').find('input').filter('[value=below]').prop('checked', true);
-            $('#thumbnail_featured_image').find('input').filter('[value=on]').prop('checked', true);
+            $('#thumbnail_featured_image').find('input').filter('[value=off]').prop('checked', true);
             $('#publish_status').find('input').filter('[value=draft]').prop('checked', true);
             $('#embed_align').find('input').filter('[value=none]').prop('checked', true);
 

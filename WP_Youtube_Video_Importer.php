@@ -3,7 +3,7 @@
      * Plugin Name: WP Youtube Video Importer
      * Plugin URI: http://chrisnavarre.com/wordpress/plugins/ytvi
      * Description: Automatically generate posts from Youtube videos, channels, and playlists including optional descriptions and thumbnails
-     * Version: 1.0
+     * Version: 1.0.2
      * Author: Christopher Navarre
      * Author URI: http://chrisnavarre.com
      * License: GPL2
