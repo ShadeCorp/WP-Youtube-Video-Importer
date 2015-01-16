@@ -54,23 +54,32 @@ the links within the Wordpress menu, WP Youtube Post Importer should
 be below the core wordpress menu items.
 
 - Settings Page: Let's you choose the settings for future imports, I recommend you check this before importing
-- Import Page: Post a full YouTube video/watch/playlist/channel URL and hit import. Playlists/Channels require checking the confirmation box
+- Import Page: Post a full YouTube video/watch/playlist/channel URL and hit import. Playlists/Channels 
+               require checking the confirmation box
 - Donate Page: If my plugin helped you save you time and effort, it would be greatly appreciated.
 - Help Page: All of this information is also contained there.
 
-Youtube Post Importer allows you to import a single video, a playlist, or a channel (which actually grabs the uploaded videos playlist)
+Youtube Post Importer allows you to import a single video, a playlist, or a channel 
+(which actually grabs the uploaded videos playlist)
 Here are some examples of valid links that you can post into the importer field
 
 https://www.youtube.com/watch?v=i6eNvfQ8fTw
 https://www.youtube.com/channel/UCwdKySs6j48yl1ae8csAurQ
 https://www.youtube.com/playlist?list=PLyH-qXFkNSxn8iiN2M1rnkpQRDJIGDe6g
-If the link is to a playlist/user/channel instead of just a single video, you will be prompted to check a checkbox in order to verify that you understand that the plugin will be importing all the videos on the associated playlist, that it may take a while and slowdown your website. In addition, there are optional date selection fields if you wish to filter the import data
+
+If the link is to a playlist/user/channel instead of just a single video, you will be prompted
+to check a checkbox in order to verify that you understand that the plugin will be importing all 
+the videos on the associated playlist, that it may take a while and slowdown your website. 
+In addition, there are optional date selection fields if you wish to filter the import data
 
 [Minimum Date (Inclusive) on the Left] -- [Maximum Date (Inclusive) on the Right]
 
-Successes:	Videos that were successfully imported into individual Wordpress posts with the settings supplied by the options page
-Failures:	Videos which could not successfully import into the database.
-Skipped:	Videos that were ignored during the import because of a date filter that shows up for playlist imports.
-Using just the video/channel id and not the full URL won't work - Ex. "i6eNvfQ8fTw"
+Successes:	Videos that were successfully imported into individual Wordpress posts with the settings supplied
+            by the options page
+Failures:	  Videos which could not successfully import into the database.
+Skipped:  	Videos that were ignored during the import because of a date filter that shows up for playlist imports.
+            Using just the video/channel id and not the full URL won't work - Ex. "i6eNvfQ8fTw"
 
-Before actually attempting to import videos into Wordpress, I recommend backing up your database and checking the plugin settings page to see if there are any modifications you wish to make to the data going into Wordpress.
+Before actually attempting to import videos into Wordpress, I recommend backing up your database 
+and checking the plugin settings page to see if there are any modifications you wish to make to the
+data going into Wordpress.
