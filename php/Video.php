@@ -11,14 +11,14 @@
             
 
             function __construct($videoResult) {
-				$options = get_option('ytpi_options');
+                                $options = get_option('ytvi_options');
 
 
 				$this->id = $videoResult['id'];
 				$this->title = $videoResult['snippet']['title'];
-				$this->youtube_embed = '<div align="' . $options['embed_align'] . '"><iframe src="http://www.youtube.com/embed/' 
-					. $this->id . '" frameborder="0" width="' . $options['video_width'] . '"height="' .
-					$options['video_height'] . '"></iframe></div>';
+                                $this->youtube_embed = '<div align="' . esc_attr($options['embed_align']) . '"><iframe src="https://www.youtube.com/embed/'
+                                        . $this->id . '" frameborder="0" width="' . $options['video_width'] . '"height="' .
+                                        $options['video_height'] . '"></iframe></div>';
 
 				// Optionals
 				if ($options['inc_description'] === 'below') {
@@ -90,11 +90,16 @@
              * @param string $base_title - optional base of attachment file name
              */
             function load_and_attach_thumbnail($thumb_url, $post_id) {
+                $thumb_url  = esc_url_raw($thumb_url);
                 $thumb_info = pathinfo($thumb_url);
-                
+
                 // Upload image from url
                 $upload_dir = wp_upload_dir();
-                $image_data = file_get_contents($thumb_url);
+                $response   = wp_remote_get($thumb_url);
+                if (is_wp_error($response)) {
+                    return;
+                }
+                $image_data = wp_remote_retrieve_body($response);
                 $filename = 'ytpi-' . $post_id . '-thumb.' . $thumb_info['extension'];
                 
                 if(wp_mkdir_p($upload_dir['path'])) {

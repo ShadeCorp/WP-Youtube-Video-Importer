@@ -7,10 +7,12 @@
 		private $youtube;
                 protected $video_ids;
 
-		function __construct() {
-				include 'google/src/Google/Client.php';	
-			
-				$this->google_client = new Google_Client();
+                function __construct() {
+                                if (!class_exists('Google_Client')) {
+                                    require_once plugin_dir_path(__FILE__) . 'google/autoload.php';
+                                }
+
+                                $this->google_client = new Google_Client();
 				$this->google_client->setApplicationName("WP Youtube Video Importer");
 				$this->google_client->setDeveloperKey($this->developer_key);
 				$this->youtube = new Google_Service_Youtube($this->google_client);

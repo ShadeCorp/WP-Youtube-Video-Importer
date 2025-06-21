@@ -157,7 +157,8 @@ jQuery(document).ready(function($) {
         // Step 1: Acquire Parse URL if necessary
         $.post(ajaxurl,
             {'action' : 'fetch_url_details',
-             'url'    : url },
+             'url'    : url,
+             'security' : ytvi_data.nonce },
             function(parse_data) {
                 var json_data = JSON.parse(parse_data);
                 
@@ -202,7 +203,8 @@ jQuery(document).ready(function($) {
        
        $.post(ajaxurl,
             {'action' : 'store_videos_by_id',
-             'id' :  id},
+             'id' :  id,
+             'security' : ytvi_data.nonce},
             function (raw_json) {
                 var json_data = JSON.parse(raw_json);
                 
@@ -262,7 +264,7 @@ jQuery(document).ready(function($) {
         }
         
         $.post(ajaxurl,
-            args, // Up to
+            $.extend(args, { 'security' : ytvi_data.nonce }), // Up to
             function (raw_json) {
                 var json_data = JSON.parse(raw_json);
                 
@@ -303,7 +305,8 @@ jQuery(document).ready(function($) {
         $.post(ajaxurl,
         {'action' : 'fetch_playlist_details',
          'type' : start_data[1],
-         'id' : start_data[2]},
+         'id' : start_data[2],
+         'security' : ytvi_data.nonce},
          function(raw_data) {
              var json_data = JSON.parse(raw_data);
              if (error_check(json_data['errors'])) return;

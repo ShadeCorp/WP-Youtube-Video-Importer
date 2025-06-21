@@ -3,7 +3,7 @@
      * Plugin Name: WP Youtube Video Importer
      * Plugin URI: http://chrisnavarre.com/wordpress/plugins/ytvi
      * Description: Automatically generate posts from Youtube videos, channels, and playlists including optional descriptions and thumbnails
-     * Version: 1.0.4
+     * Version: 1.1.0
      * Author: Christopher Navarre
      * Author URI: http://chrisnavarre.com
      * License: GPL2
@@ -175,6 +175,7 @@
              *               echo an error message.
              */
             public function fetch_url_details() {
+                check_ajax_referer('ytvi_importer_nonce', 'security');
                 $url = filter_input(INPUT_POST, 'url', FILTER_SANITIZE_URL);
 
                 if (!empty($url)) {
@@ -191,8 +192,9 @@
             * to check progress against
             */
             public function fetch_playlist_details() {
+               check_ajax_referer('ytvi_importer_nonce', 'security');
                $type = filter_input(INPUT_POST, 'type', FILTER_SANITIZE_SPECIAL_CHARS);
-               $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS); 
+               $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
                 
                echo json_encode($this->youtube_client->get_playlist_details($type, $id));
                
@@ -205,6 +207,7 @@
              * url from post data
              */
             public function fetch_video_ids() {
+                check_ajax_referer('ytvi_importer_nonce', 'security');
                 $playlist_id = filter_input(INPUT_POST, 'playlist_id', FILTER_SANITIZE_SPECIAL_CHARS);
                 $nextPageToken = filter_input(INPUT_POST, 'nextPageToken', FILTER_SANITIZE_SPECIAL_CHARS);
                 $perPage = filter_input(INPUT_POST, 'perPage', FILTER_SANITIZE_NUMBER_INT);
@@ -224,6 +227,7 @@
              * Called as AJAX
              */
             public function store_videos_by_id() {
+                check_ajax_referer('ytvi_importer_nonce', 'security');
                 $video_ids = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_STRING);
                 $min_date = filter_input(INPUT_POST, 'min_date', FILTER_SANITIZE_STRING);
                 $max_date = filter_input(INPUT_POST, 'max_date', FILTER_SANITIZE_STRING);
@@ -265,6 +269,7 @@
              * Called as AJAX
              */
              public function store_videos_by_playlist_id() {
+                check_ajax_referer('ytvi_importer_nonce', 'security');
                 $playlist_id = filter_input(INPUT_POST, 'playlist_id', FILTER_SANITIZE_STRING);
                 $next_page_token = filter_input(INPUT_POST, 'next_page_token', FILTER_SANITIZE_STRING);
                 $per_page = filter_input(INPUT_POST, 'per_page', FILTER_SANITIZE_NUMBER_INT);
