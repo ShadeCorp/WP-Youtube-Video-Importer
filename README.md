@@ -2,8 +2,8 @@
 Contributors: ChrisNavarre  
 Donate link: http://goo.gl/1yHqsz  
 Tags: youtube, video, thumbnail, bulk, batch, import, post  
-Requires at least: 3.7  
-Tested up to: 4.1  
+Requires at least: 5.0
+Tested up to: 6.4
 Stable tag: trunk  
 License: GPLv2  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html  

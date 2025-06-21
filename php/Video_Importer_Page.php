@@ -6,10 +6,15 @@
             wp_enqueue_script(
                 'importer',
                 plugins_url('../js/importer.js', __FILE__),
-                array('jquery', 'jquery-ui-core', 'jquery-ui-progressbar', 'jquery-ui-datepicker')
+                array('jquery', 'jquery-ui-core', 'jquery-ui-progressbar', 'jquery-ui-datepicker'),
+                false,
+                true
             );
-            
-            $url = "http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/redmond/jquery-ui.css";
+            wp_localize_script('importer', 'ytvi_data', array(
+                'nonce' => wp_create_nonce('ytvi_importer_nonce')
+            ));
+
+            $url = "https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/redmond/jquery-ui.css";
             wp_enqueue_style('jquery-ui-redmond', $url, false, null);
         }
 
